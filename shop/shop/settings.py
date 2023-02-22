@@ -153,3 +153,6 @@ LOGGING = {
        }
    }
 }
+
+MY_CUSTOM_VARIABLE = "Hello world!"
+MY_ENV_VARIABLE = os.getenv("MY_ENV_VARIABLE", None)
