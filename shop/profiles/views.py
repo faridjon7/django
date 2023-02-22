@@ -4,7 +4,7 @@ from django.http import HttpResponse
 logger = logging.getLogger(__name__)
 
 
-def index(request):
+def profiles(request):
     if request.GET.get("param"):
         logger.error(f"My param = {request.GET.get('param')}")
-    return HttpResponse("Shop index view")
+    return HttpResponse("Profiles view")
