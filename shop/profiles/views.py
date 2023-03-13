@@ -20,7 +20,7 @@ def register(request):
         if form.is_valid():
             logger.info(f"User email: {form.cleaned_data['email']}")
             logger.info(f"User password: {form.cleaned_data['password']}")
-            return redirect("/thanks/")
+            return redirect("/")
     else:
         form = RegisterForm()
     return render(request, "register.html", {"form": form})
