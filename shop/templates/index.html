@@ -7,10 +7,10 @@
   <h1>Products</h1>
   <div class="row mb-3">
   {% for product in products %}
-    {% if forloop.counter0|divisibleby:3 %}
-      </div><div class="row mb-3">
+    {% if forloop.counter0|divisibleby:4 %}
+      </div><div class="row mb-4">
     {% endif %}
-    <div class="col-4">
+    <div class="col-3">
       {% include "product.html" %}
     </div>
   {% endfor %}
