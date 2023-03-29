@@ -7,6 +7,6 @@ class TestIndex:
     def setup_method(self):
         self.client = Client()
 
-    def test_my_function(self):
+    def test_index(self):
         response = self.client.get("/")
         assert response.status_code == 200
