@@ -24,7 +24,7 @@ class TestProductsApi:
         assert response.status_code == 200
         assert response.json().get("token") is not None
 
-        self.client.credentials(http_authorization=f"Token {response.json().get('token')}")
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {response.json().get('token')}")
         response = self.client.delete("/api/logout/")
         assert response.status_code == 200
 
