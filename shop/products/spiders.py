@@ -5,6 +5,7 @@ class OmaSpider(scrapy.Spider):
     name = "oma.by"
     allowed_domains = ["www.oma.by"]
     start_urls = ["https://www.oma.by/elektroinstrument-c"]
+    current_page = 1
 
     def parse(self, response, **kwargs):
         for product in response.css(".catalog-grid .product-item"):
@@ -22,4 +23,7 @@ class OmaSpider(scrapy.Spider):
 
         next_page = response.css(".page-nav_box .btn__page-nav:last-child::attr(href)").get()
         if next_page is not None:
+            self.current_page += 1
+            if self.current_page == 2:
+                return
             yield response.follow(next_page, callback=self.parse)
