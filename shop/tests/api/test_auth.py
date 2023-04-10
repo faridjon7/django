@@ -1,6 +1,7 @@
 import pytest
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.admin import User
+from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
 from products.models import Product
@@ -23,8 +24,10 @@ class TestProductsApi:
         response = self.client.post("/api/login/", data=self.data)
         assert response.status_code == 200
         assert response.json().get("token") is not None
+        assert Token.objects.exists()
 
         self.client.credentials(HTTP_AUTHORIZATION=f"Token {response.json().get('token')}")
         response = self.client.delete("/api/logout/")
         assert response.status_code == 200
+        assert not Token.objects.exists()
 
