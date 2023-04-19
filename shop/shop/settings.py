@@ -95,7 +95,7 @@ DATABASES = {
 
 # https://docs.djangoproject.com/en/4.1/ref/settings/#caches
 
-REDIS_HOST = os.getenv("REDIS_HOST", "localhost"),
+REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
 CACHES = {
    "default": {
        "BACKEND": "django.core.cache.backends.redis.RedisCache",
