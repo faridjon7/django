@@ -85,8 +85,8 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "django",
-        "USER": "django",
+        "NAME": os.getenv("POSTGRES_NAME", "django"),
+        "USER": os.getenv("POSTGRES_USER", "django"),
         "PASSWORD": os.getenv("POSTGRES_PASS", "django"),
         "HOST":  os.getenv("POSTGRES_HOST", "localhost"),
         "PORT": 5432,
@@ -95,10 +95,11 @@ DATABASES = {
 
 # https://docs.djangoproject.com/en/4.1/ref/settings/#caches
 
+REDIS_HOST = os.getenv("REDIS_HOST", "localhost"),
 CACHES = {
    "default": {
        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-       "LOCATION": "redis://127.0.0.1:6379",
+       "LOCATION": f"redis://{REDIS_HOST}:6379",
    }
 }
 
