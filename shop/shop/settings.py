@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_rq',
     'profiles',
     'products',
 ]
@@ -102,6 +103,18 @@ CACHES = {
        "LOCATION": f"redis://{REDIS_HOST}:6379",
    }
 }
+
+# https://github.com/rq/django-rq
+
+RQ_QUEUES = {
+    'default': {
+       'HOST': REDIS_HOST,
+       'PORT': 6379,
+       'DB': 0,
+       'DEFAULT_TIMEOUT': 360,
+    },
+}
+
 
 
 # Password validation
