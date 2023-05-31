@@ -1,5 +1,6 @@
 import logging
 from django.core.cache import cache
+from django.db.models import Q
 from django.shortcuts import render
 
 from products.models import Product
@@ -18,7 +19,7 @@ def index(request):
     products = Product.objects.all()
 
     if title is not None:
-        products = products.filter(title__icontains=title)
+        products = products.filter(Q(title__icontains=title) | Q(description__icontains=title))
 
     if purchases__count is not None:
         products = products.filter(purchases__count=purchases__count)
