@@ -1,4 +1,8 @@
+import os
+
 import requests
+import shutil
+
 from django.conf import settings
 
 from django.core.management.base import BaseCommand
@@ -12,9 +16,11 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
 
-@job("")
 def run_spider():
     Product.objects.all().delete()
+
+    shutil.rmtree(settings.MEDIA_ROOT)
+    os.makedirs(settings.MEDIA_ROOT / "products", exist_ok=True)
 
     def crawler_results(signal, sender, item, response, spider):
         image_name = item["image_name"].split("/")[-1]
@@ -39,4 +45,4 @@ class Command(BaseCommand):
     help = "Crawl OMA catalog"
 
     def handle(self, *args, **options):
-        run_spider.delay()
+        run_spider()
