@@ -15,7 +15,7 @@ services:
 
   django: &django
     restart: always
-    image: django:latest
+    image: mantiby/django:latest
     ports:
       - "8000:8000"
     volumes:
