@@ -2,14 +2,13 @@ import logging
 from decimal import Decimal
 
 import requests
-
 from django.core.management.base import BaseCommand
 from django.db.models import F
 from django_rq import job
-
 from products.models import Product
 
 logger = logging.getLogger(__name__)
+
 
 @job
 def update_products():
@@ -25,9 +24,7 @@ def update_products():
             product.price_usd = product.price / Decimal(item["Cur_OfficialRate"])
             product.save()
 
-        Product.objects.update(
-            price_usd=F("price") / Decimal(item["Cur_OfficialRate"])
-        )
+        Product.objects.update(price_usd=F("price") / Decimal(item["Cur_OfficialRate"]))
 
 
 class Command(BaseCommand):

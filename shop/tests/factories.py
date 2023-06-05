@@ -1,9 +1,7 @@
 from decimal import Decimal
 
 import factory
-
 from factory.django import DjangoModelFactory
-
 from products.models import Product
 
 

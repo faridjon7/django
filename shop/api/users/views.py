@@ -1,13 +1,11 @@
+from api.users.serializers import LoginSerializer, RegisterSerializer
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-
-from rest_framework import status, serializers
+from rest_framework import serializers, status
 from rest_framework.authtoken.models import Token
-from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
-from api.users.serializers import RegisterSerializer, LoginSerializer
 
 
 class RegisterView(CreateAPIView):

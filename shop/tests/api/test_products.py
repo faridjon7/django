@@ -1,7 +1,6 @@
 import pytest
-from rest_framework.test import APIClient
-
 from products.models import Product
+from rest_framework.test import APIClient
 from tests.factories import ProductFactory
 
 
@@ -15,11 +14,14 @@ class TestProductsApi:
         assert response.status_code == 200
         assert response.json().get("count") == 0
 
-        response = self.client.post("/api/products/", data={
-            "title": "Nokia 666",
-            "color": "GREEN",
-            "price": 50,
-        })
+        response = self.client.post(
+            "/api/products/",
+            data={
+                "title": "Nokia 666",
+                "color": "GREEN",
+                "price": 50,
+            },
+        )
         assert response.status_code == 201
         assert Product.objects.exists()
 
