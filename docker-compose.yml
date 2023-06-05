@@ -2,6 +2,7 @@ version: '3.3'
 services:
 
   postgres:
+    restart: always
     image: postgres:latest
     environment:
       - POSTGRES_DB=django
@@ -9,9 +10,11 @@ services:
       - POSTGRES_PASSWORD=django
 
   redis:
+    restart: always
     image: redis:latest
 
   django: &django
+    restart: always
     image: django:latest
     ports:
       - "8000:8000"
@@ -27,7 +30,7 @@ services:
       - POSTGRES_HOST=postgres
       - REDIS_HOST=redis
     command: |
-      python shop/manage.py runserver 0.0.0.0:8000
+      gunicorn --workers 4 shop.wsgi:application
 
   worker:
     <<: *django
