@@ -36,7 +36,10 @@ def run_spider():
 
     dispatcher.connect(crawler_results, signal=signals.item_scraped)
 
-    process = CrawlerProcess(get_project_settings())
+    scrapy_settings = get_project_settings()
+    scrapy_settings["USER_AGENT"] = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0"
+
+    process = CrawlerProcess(scrapy_settings)
     process.crawl(OmaSpider)
     process.start()
 
