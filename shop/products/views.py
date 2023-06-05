@@ -1,5 +1,6 @@
 import logging
 from django.core.cache import cache
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 
@@ -24,6 +25,7 @@ def index(request):
     if purchases__count is not None:
         products = products.filter(purchases__count=purchases__count)
 
-    response = render(request, "index.html", {"products": products})
-    cache.set(f"products-view-{title}-{purchases__count}", response, 60 * 60)
-    return response
+    page_number = request.GET.get("page")
+    paginator = Paginator(products, 12)
+    products = paginator.get_page(page_number)
+    return render(request, "index.html", {"products": products})
