@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-3">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+                {% else %}
+                    <img src="{% static 'img/no-image.png' %}" class="card-img-top" alt="{{ product.title }}">
+                {% endif %}
+            </div>
+            <div class="col-5">
+                <h1 class="card-title">{{ product.title }}</h1>
+                <p class="card-text">Color: {{ product.color }}</p>
+                <p class="card-text">Price: {{ product.price }} BYN</p>
+                <p class="card-text">Price: {{ product.price_usd }} USD</p>
+                <div>
+                    {% if request.user.is_authenticated %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                              <label for="count" class="form-label">Count</label>
+                              <input type="number" class="form-control" id="count" name="count" placeholder="Количество">
+                            </div>
+                            <button class="btn btn-danger">Добавить в корзину</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}">
+                            <button class="btn btn-danger">Купить</button>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

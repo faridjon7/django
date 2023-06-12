@@ -3,8 +3,8 @@ import logging
 from django.core.cache import cache
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import render
-from products.models import Product
+from django.shortcuts import render, get_object_or_404, redirect
+from products.models import Product, Purchase
 
 logger = logging.getLogger(__name__)
 
@@ -31,3 +31,18 @@ def index(request):
     paginator = Paginator(products, 12)
     products = paginator.get_page(page_number)
     return render(request, "index.html", {"products": products})
+
+
+def details(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == "POST":
+        Purchase.objects.create(
+            user=request.user, product=product, count=request.POST.get("count")
+        )
+        return redirect("cart")
+    return render(request, "details.html", {"product": product})
+
+
+def cart(request):
+    purchases = Purchase.objects.filter(user=request.user, status="IN_CART")
+    return render(request, "purchases.html", {"purchases": purchases})

@@ -7,7 +7,9 @@
    <img src="{% static 'img/no-image.png' %}" class="card-img-top" alt="{{ product.title }}">
  {% endif %}
  <div class="card-body">
-   <h5 class="card-title">{{ product.title }}</h5>
+   <h5 class="card-title">
+     <a href="{% url 'details' product.id %}">{{ product.title }}</a>
+   </h5>
    <p class="card-text">Color: {{ product.color }}</p>
    <p class="card-text">Price: {{ product.price }} BYN</p>
    <p class="card-text">Price: {{ product.price_usd }} USD</p>

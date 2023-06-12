@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
-from products.views import index
+from products.views import index, details, cart
 from profiles.views import login_view, logout_view, profiles, register
 
 urlpatterns = [
@@ -27,6 +27,8 @@ urlpatterns = [
     path("register/", register, name="register"),
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),
+    path("details/<int:product_id>/", details, name="details"),
+    path("cart/", cart, name="cart"),
     path("", index, name="index"),
 ]
 
