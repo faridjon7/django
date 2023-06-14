@@ -1,9 +1,12 @@
 import logging
 
+from django.conf import settings
 from django.core.cache import cache
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import translation
+
 from products.models import Product, Purchase
 
 logger = logging.getLogger(__name__)
@@ -46,3 +49,11 @@ def details(request, product_id):
 def cart(request):
     purchases = Purchase.objects.filter(user=request.user, status="IN_CART")
     return render(request, "purchases.html", {"purchases": purchases})
+
+
+def language(request):
+    lang = request.GET.get("lang", "ru")
+    translation.activate(lang)
+    response = redirect(request.META.get("HTTP_REFERER", "index"))
+    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
+    return response

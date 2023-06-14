@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,6 +27,16 @@
             <a class="nav-link active" aria-current="page" href="{% url "login" %}">Login</a>
           </li>
         {% endif %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url "language" %}?lang=ru">
+                {% translate "Russian" %}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url "language" %}?lang=en">
+              {% translate "English" %}
+            </a>
+          </li>
       </ul>
     </div>
   </div>
